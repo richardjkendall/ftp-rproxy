@@ -56,4 +56,17 @@ jobs:
         cd $GITHUB_WORKSPACE/source
         ls -l
         docker build -t proftpd .
+    
+    - name: log in to docker
+      run: echo ${{secrets.DOCKERHUB_PASSWORD}} | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
+    
+    - name: Get the tag for docker
+      id: vars
+      run: echo ::set-output name=tag::$(echo ${GITHUB_SHA::8})
       
+    - name: docker publish
+      run: |
+        docker tag proftpd ${{secrets.DOCKERHUB_USERNAME}}/ftp-rproxy:${{steps.vars.outputs.tag}}
+        docker tag proftpd ${{secrets.DOCKERHUB_USERNAME}}/ftp-rproxy:latest
+        docker push ${{secrets.DOCKERHUB_USERNAME}}/ftp-rproxy:${{steps.vars.outputs.tag}}
+        docker push ${{secrets.DOCKERHUB_USERNAME}}/ftp-rproxy:latest
