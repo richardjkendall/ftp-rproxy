@@ -48,6 +48,7 @@ jobs:
         ./configure --with-modules=mod_proxy
         make
         sudo make install
+        sudo find / | grep mod_proxy
         cp /usr/local/sbin/proftpd $GITHUB_WORKSPACE/source/
         cp /usr/local/libexec/mod_proxy* $GITHUB_WORKSPACE/source/
     
