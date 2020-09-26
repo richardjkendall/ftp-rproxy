@@ -11,6 +11,11 @@ jobs:
     runs-on: ubuntu-18.04
     
     steps:
+    - name: get source code
+      uses: actions/checkout@v2
+      with:
+        path: 'source'
+
     - name: get and build sqlite3 3.31
       run: |
         cd $GITHUB_WORKSPACE
