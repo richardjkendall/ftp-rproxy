@@ -45,7 +45,7 @@ jobs:
         tar xvf ../../v0.5.tar.gz
         mv proftpd-mod_proxy-0.5/ mod_proxy
         cd ..
-        ./configure --with-modules=mod_proxy
+        ./configure --enable-dso --with-shared=mod_proxy
         make
         sudo make install
         cp /usr/local/sbin/proftpd $GITHUB_WORKSPACE/source/
